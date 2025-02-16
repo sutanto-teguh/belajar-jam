@@ -23,3 +23,24 @@ Menguasai keterampilan-keterampilan ini akan membantu Anda menjadi profesional y
 [3](https://corporate.edspert.id/blog/keterampilan-wajib-iot-engineer/): [Edspert](https://corporate.edspert.id/blog/keterampilan-wajib-iot-engineer/)
 [2](https://glints.com/id/lowongan/skill-iot-adalah/): [Glints](https://glints.com/id/lowongan/skill-iot-adalah/)
 [1](https://biztechacademy.id/profesi-iot-jobdesk-skill-peluang-karir-dan-tren-terbaru/): [Biztech Academy](https://biztechacademy.id/profesi-iot-jobdesk-skill-peluang-karir-dan-tren-terbaru/)
+
+#Sertifikasi
+Berikut adalah beberapa sertifikasi yang berguna untuk karir di bidang Internet of Things (IoT):
+
+1. **Certified Internet of Things (CIoT) Practitioner**: Sertifikasi ini mencakup dasar-dasar IoT, termasuk arsitektur, protokol, dan keamanan. Ini adalah sertifikasi yang baik untuk pemula yang ingin memahami konsep dasar IoT[1](https://study.indobot.co.id/shop/sertifikasi-profesi/kelas-internet-of-things-skkni/).
+
+2. **Cisco IoT Fundamentals**: Cisco menawarkan beberapa kursus dan sertifikasi yang berfokus pada IoT, termasuk IoT Fundamentals: Connecting Things dan IoT Fundamentals: Big Data & Analytics. Sertifikasi ini membantu Anda memahami bagaimana menghubungkan perangkat dan menganalisis data yang dihasilkan[2](https://mysertifikasi.com/product/pelatihan-dan-sertifikasi-perekayasaan-platform-internet-of-things/).
+
+3. **AWS Certified IoT**: Amazon Web Services (AWS) menawarkan sertifikasi yang berfokus pada penggunaan layanan AWS untuk mengembangkan dan mengelola solusi IoT. Sertifikasi ini sangat berguna bagi mereka yang bekerja dengan platform cloud[3](https://indobot.co.id/pelatihan-dan-sertifikasi-iot/).
+
+4. **Microsoft Certified: Azure IoT Developer Specialty**: Sertifikasi ini dirancang untuk pengembang yang bekerja dengan solusi IoT di platform Microsoft Azure. Ini mencakup topik seperti pengembangan dan implementasi solusi IoT, serta pengelolaan perangkat IoT[3](https://indobot.co.id/pelatihan-dan-sertifikasi-iot/).
+
+5. **Pelatihan dan Sertifikasi Internet of Things (IoT) BNSP**: Di Indonesia, sertifikasi dari Badan Nasional Sertifikasi Profesi (BNSP) sangat dihargai. Sertifikasi ini mencakup berbagai aspek IoT, termasuk instalasi perangkat, integrasi perangkat keras dan perangkat lunak, serta keamanan[1](https://study.indobot.co.id/shop/sertifikasi-profesi/kelas-internet-of-things-skkni/).
+
+6. **Certified IoT Professional (CIoTP)**: Sertifikasi ini mencakup berbagai aspek IoT, termasuk desain, pengembangan, dan implementasi solusi IoT. Ini adalah sertifikasi yang komprehensif untuk profesional yang ingin mendalami bidang IoT[2](https://mysertifikasi.com/product/pelatihan-dan-sertifikasi-perekayasaan-platform-internet-of-things/).
+
+Mengambil sertifikasi ini dapat membantu Anda meningkatkan keterampilan dan pengetahuan Anda di bidang IoT, serta meningkatkan peluang karir Anda. Apakah ada sertifikasi tertentu yang ingin Anda pelajari lebih lanjut? 😊
+
+[1](https://study.indobot.co.id/shop/sertifikasi-profesi/kelas-internet-of-things-skkni/): [Indobot Academy](https://study.indobot.co.id/shop/sertifikasi-profesi/kelas-internet-of-things-skkni/)
+[2](https://mysertifikasi.com/product/pelatihan-dan-sertifikasi-perekayasaan-platform-internet-of-things/): [MySertifikasi](https://mysertifikasi.com/product/pelatihan-dan-sertifikasi-perekayasaan-platform-internet-of-things/)
+[3](https://indobot.co.id/pelatihan-dan-sertifikasi-iot/): AWS
