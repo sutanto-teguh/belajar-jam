@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quranic Audio Player</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <body>
+    
+    <div class="w3-container w3-teal">
+      <h1>Murotal Player</h1>
+    </div>
+    
+    <div class="w3-container w3-center">
+      <p>Dengarkan Murotal</p>
+       
+    <audio id="audioPlayer" controls></audio>
+    <br>
+    <button class="w3-button w3-green" onclick="playSequential()">Putar Berurutan</button>
+    <button class="w3-button w3-blue" onclick="playRandom()">Putar Acak</button>
+    <br><br>
+   
+    <label for="audioIndex">Pilih Nomor Surah[1 sd 114]:</label>
+    <input class="w3-input w3-border w3-round" type="number" id="audioIndex" min="1" max="114">
+    <button class="w3-button w3-green w3-block" onclick="playSelected()">Putar</button>
+   
+    <br><br>
+    <div class="w3-panel w3-pale-green" id="currentTrack">Current Track: None</div>
+  
+    <script>
+        const namaSurah =['Surah Al-Fatihah الفاتحة (Pembukaan)',
+'Surah Al-Baqarah البقرة (Sapi Betina)',
+'Surah Ali ‘Imran آل عمران (Keluarga ‘Imran)',
+'Surah An-Nisa’ النّساء (Wanita)',
+'Surah Al-Ma’idah المائدة (Hidangan)',
+'Surah Al-An’am الانعام (Hewan Ternak)',
+'Surah Al-A’raf الأعراف (Tempat yang tertinggi)',
+'Surah Al-Anfal الأنفال (Harta rampasan perang)',
+'Surah At-Taubah التوبة (Pengampunan)',
+'Surah Yunus يونس (Nabi Yunus)',
+'Surah Hud هود (Nabi Hud)',
+'Surah Yusuf يوسف (Nabi Yusuf)',
+'Surah Ar-Ra’d الرعد (Guruh (petir))',
+'Surah Ibrahim إبراهيم (Nabi Ibrahim)',
+'Surah Al-Hijr الحجر (Gunung Al Hijr)',
+'Surah An-Nahl النحل (Lebah)',
+'Surah Al-Isra’ الإسراء (Perjalanan Malam)',
+'Surah Al-Kahf الكهف (Penghuni-penghuni Gua)',
+'Surah Maryam مريم (Maryam (Maria))',
+'Surah Ta Ha طه (Ta Ha)',
+'Surah Al-Anbiya الأنبياء (Nabi-Nabi)',
+'Surah Al-Hajj الحجّ (Haji)',
+'Surah Al-Mu’minun المؤمنون (Orang-orang mukmin)',
+'Surah An-Nur النور (Cahaya)',
+'Surah Al-Furqan الفرقان (Pembeda)',
+'Surah Asy-Syu’ara’ الشعراء (Penyair)',
+'Surah An-Naml النمل (Semut)',
+'Surah Al-Qasas القصص (Kisah)',
+'Surah Al-‘Ankabut العنكبوت (Laba-laba)',
+'Surah Ar-Rum الروم (Bangsa Romawi)',
+'Surah Luqman لقمان (Keluarga Luqman)',
+'Surah As-Sajdah السجدة (Sajdah)',
+'Surah Al-Ahzab الْأحزاب (Golongan-Golongan yang bersekutu)',
+'Surah Saba’ سبأ (Kaum Saba’)',
+'Surah Fatir فاطر (Pencipta)',
+'Surah Ya Sin يس (Yaasiin)',
+'Surah As-Saffat الصافات (Barisan-barisan)',
+'Surah Sad ص (Shaad)',
+'Surah Az-Zumar الزمر (Rombongan-rombongan)',
+'Surah Ghafir غافر (Yang mengampuni)',
+'Surah Fussilat فصلت (Yang dijelaskan)',
+'Surah Asy-Syura الشورى (Musyawarah)',
+'Surah Az-Zukhruf الزخرف (Perhiasan)',
+'Surah Ad-Dukhan الدخان (Kabut)',
+'Surah Al-Jasiyah الجاثية (Yang bertekuk lutut)',
+'Surah Al-Ahqaf الَأحقاف (Bukit-bukit pasir)',
+'Surah Muhammad محمد (Nabi Muhammad)',
+'Surah Al-Fath الفتح (Kemenangan)',
+'Surah Al-Hujurat الحجرات (Kamar-kamar)',
+'Surah Qaf ق (Qaaf)',
+'Surah Az-Zariyat الذاريات (Angin yang menerbangkan)',
+'Surah At-Tur الطور (Bukit)',
+'Surah An-Najm النجم (Bintang)',
+'Surah Al-Qamar القمر (Bulan)',
+'Surah Ar-Rahman الرحمن (Yang Maha Pemurah)',
+'Surah Al-Waqi’ah الواقعة (Hari Kiamat)',
+'Surah Al-Hadid الحديد (Besi)',
+'Surah Al-Mujadilah المجادلة (Wanita yang mengajukan gugatan)',
+'Surah Al-Hasyr الحشر (Pengusiran)',
+'Surah Al-Mumtahanah الممتحنة (Wanita yang diuji)',
+'Surah As-Saff الصف (Satu barisan)',
+'Surah Al-Jumu’ah الجمعة (Hari Jum’at)',
+'Surah Al-Munafiqun المنافقون (Orang-orang yang munafik)',
+'Surah At-Tagabun التغابن (Hari dinampakkan kesalahan-kesalahan)',
+'Surah At-Talaq الطلاق (Talak)',
+'Surah At-Tahrim التحريم (Mengharamkan)',
+'Surah Al-Mulk الملك (Kerajaan)',
+'Surah Al-Qalam القلم (Pena)',
+'Surah Al-Haqqah الحآقة (Hari kiamat)',
+'Surah Al-Ma’arij المعارج (Tempat naik)',
+'Surah Nuh نوح (Nabi Nuh)',
+'Surah Al-Jinn الجن (Jin)',
+'Surah Al-Muzzammil المزمل (Orang yang berselimut)',
+'Surah Al-Muddassir المدثر (Orang yang berkemul)',
+'Surah Al-Qiyamah القيامة (Kiamat)',
+'Surah Al-Insan الإنسان (Manusia)',
+'Surah Al-Mursalat المرسلات (Malaikat-Malaikat Yang Diutus)',
+'Surah An-Naba’ النبأ (Berita besar)',
+'Surah An-Nazi’at النازعات (Malaikat-Malaikat Yang Mencabut)',
+'Surah ‘Abasa عبس (Ia Bermuka masam)',
+'Surah At-Takwir التكوير (Menggulung)',
+'Surah Al-Infitar الإنفطار (Terbelah)',
+'Surah Al-Tatfif المطففين (Orang-orang yang curang)',
+'Surah Al-Insyiqaq الإنشقاق (Terbelah)',
+'Surah Al-Buruj البروج (Gugusan bintang)',
+'Surah At-Tariq الطارق (Yang datang di malam hari)',
+'Surah Al-A’la الأعلى (Yang paling tinggi)',
+'Surah Al-Gasyiyah الغاشية (Hari Pembalasan)',
+'Surah Al-Fajr الفجر (Fajar)',
+'Surah Al-Balad البلد (Negeri)',
+'Surah Asy-Syams الشمس (Matahari)',
+'Surah Al-Lail اليل (Malam)',
+'Surah Ad-Duha الضحى‎‎ (Waktu matahari sepenggalahan naik (Dhuha))',
+'Surah Al-Insyirah الإنشراح‎‎ (Melapangkan)',
+'Surah At-Tin التينِ (Buah Tin)',
+'Surah Al-‘Alaq العلق (Segumpal Darah)',
+'Surah Al-Qadr القدرِ (Kemuliaan)',
+'Surah Al-Bayyinah البينة (Pembuktian)',
+'Surah Az-Zalzalah الزلزلة‎‎ (Kegoncangan)',
+'Surah Al-‘Adiyat العاديات‎‎ (Berlari kencang)',
+'Surah Al-Qari’ah القارعة‎‎ (Hari Kiamat)',
+'Surah At-Takasur التكاثر‎‎ (Bermegah-megahan)',
+'Surah Al-‘Asr العصر (Masa/Waktu)',
+'Surah Al-Humazah الهمزة‎‎ (Pengumpat)',
+'Surah Al-Fil الفيل (Gajah)',
+'Surah Quraisy قريش (Suku Quraisy)',
+'Surah Al-Ma’un الماعون (Barang-barang yang berguna)',
+'Surah Al-Kausar الكوثر (Nikmat yang berlimpah)',
+'Surah Al-Kafirun الكافرون (Orang-orang kafir)',
+'Surah An-Nasr النصر‎‎ (Pertolongan)',
+'Surah Al-Lahab اللهب‎‎ (Gejolak Api/ Sabut)',
+'Surah Al-Ikhlas الإخلاص‎‎ (Ikhlas)',
+'Surah Al-Falaq الفلق (Waktu Subuh)',
+'Surah An-Nas الناس (Umat Manusia)'
+];
+        const audioFiles = [
+        'https://download.quranicaudio.com/quran/abdullah_matroud/001.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/002.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/003.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/004.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/005.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/006.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/007.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/008.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/009.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/010.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/011.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/012.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/013.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/014.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/015.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/016.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/017.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/018.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/019.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/020.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/021.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/022.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/023.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/024.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/025.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/026.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/027.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/028.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/029.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/030.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/031.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/032.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/033.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/034.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/035.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/036.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/037.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/038.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/039.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/040.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/041.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/042.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/043.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/044.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/045.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/046.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/047.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/048.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/049.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/050.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/051.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/052.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/053.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/054.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/055.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/056.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/057.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/058.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/059.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/060.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/061.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/062.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/063.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/064.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/065.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/066.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/067.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/068.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/069.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/070.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/071.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/072.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/073.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/074.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/075.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/076.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/077.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/078.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/079.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/080.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/081.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/082.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/083.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/084.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/085.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/086.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/087.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/088.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/089.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/090.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/091.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/092.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/093.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/094.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/095.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/096.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/097.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/098.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/099.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/100.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/101.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/102.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/103.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/104.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/105.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/106.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/107.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/108.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/109.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/110.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/111.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/112.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/113.mp3',
+'https://download.quranicaudio.com/quran/abdullah_matroud/114.mp3'
+        ];
+
+        let currentIndex = 0;
+        const audioPlayer = document.getElementById('audioPlayer');
+        const currentTrack = document.getElementById('currentTrack');
+
+        function updateCurrentTrack() {
+            currentTrack.textContent = `Current Track: ${namaSurah[currentIndex]}`;
+        }
+
+        function playSequential() {
+            audioPlayer.src = audioFiles[currentIndex];
+            updateCurrentTrack();
+            audioPlayer.play();
+            audioPlayer.onended = () => {
+                currentIndex = (currentIndex + 1) % audioFiles.length;
+                playSequential();
+            };
+        }
+
+        function playRandom() {
+            currentIndex = Math.floor(Math.random() * audioFiles.length);
+            audioPlayer.src = audioFiles[currentIndex];
+            updateCurrentTrack();
+            audioPlayer.play();
+            audioPlayer.onended = playRandom;
+        }
+
+        function playSelected() {
+            const index = document.getElementById('audioIndex').value-1;
+            //index = index ;
+            if (index >= 0 && index < audioFiles.length) {
+                currentIndex = index;
+                audioPlayer.src = audioFiles[currentIndex];
+                updateCurrentTrack();
+                audioPlayer.play();
+            } else {
+                alert('Invalid index. Please select a valid index.');
+            }
+        }
+    </script>
+    </div>
+    <footer class="w3-container w3-teal">
+        <h5>Quranic Audio Player</h5>
+        <p>Created by Teguh Sutanto</p>
+      </footer>
+</body>
+</html>
